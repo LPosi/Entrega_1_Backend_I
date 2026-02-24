@@ -68,11 +68,14 @@ class ProductManager {
   async deleteProduct(id) {
     const products = await this.getProducts();
 
+    const productExists = products.some(p => p.id === id);
+    if (!productExists) return false;
+
     const filteredProducts = products.filter(p => p.id !== id);
 
     await fs.promises.writeFile(
-      this.path,
-      JSON.stringify(filteredProducts, null, 2)
+    this.path,
+    JSON.stringify(filteredProducts, null, 2)
     );
 
     return true;
