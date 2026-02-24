@@ -21,7 +21,7 @@ class CartManager {
 
     const newId =
       carts.length > 0
-        ? carts[carts.length - 1].id + 1
+        ? Math.max(...carts.map(c => c.id)) + 1
         : 1;
 
     const newCart = {
