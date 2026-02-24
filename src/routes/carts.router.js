@@ -24,13 +24,17 @@ router.post("/:cid/product/:pid", async (req, res) => {
   const cid = parseInt(req.params.cid);
   const pid = parseInt(req.params.pid);
 
-  const updatedCart = await manager.addProductToCart(cid, pid);
+  const result = await manager.addProductToCart(cid, pid);
 
-  if (!updatedCart) {
+  if (result === null) {
     return res.status(404).json({ error: "Carrito no encontrado" });
   }
 
-  res.json(updatedCart);
+  if (result === "PRODUCT_NOT_FOUND") {
+    return res.status(404).json({ error: "Producto no encontrado" });
+  }
+
+  res.json(result);
 });
 
 module.exports = router;
