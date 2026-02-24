@@ -1,3 +1,4 @@
+const ProductManager = require("./ProductManager");
 const fs = require("fs");
 const path = require("path");
 
