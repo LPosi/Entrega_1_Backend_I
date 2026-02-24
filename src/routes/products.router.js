@@ -48,7 +48,13 @@ router.put("/:pid", async (req, res) => {
 
 router.delete("/:pid", async (req, res) => {
   const id = parseInt(req.params.pid);
-  await manager.deleteProduct(id);
+
+  const deleted = await manager.deleteProduct(id);
+
+  if (!deleted) {
+    return res.status(404).json({ error: "Producto no encontrado" });
+  }
+
   res.json({ message: "Producto eliminado" });
 });
 
