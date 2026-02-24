@@ -47,6 +47,11 @@ class CartManager {
 
   async addProductToCart(cid, pid) {
     const carts = await this.getCarts();
+    const productManager = new ProductManager();
+
+    const product = await productManager.getProductById(pid);
+    if (!product) return "PRODUCT_NOT_FOUND";
+
 
     const cartIndex = carts.findIndex(c => c.id === cid);
     if (cartIndex === -1) return null;
