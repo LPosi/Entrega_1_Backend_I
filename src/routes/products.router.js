@@ -21,6 +21,16 @@ router.get("/:pid", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
+  const { title, description, code, price, stock, category } = req.body;
+
+  if (!title || !description || !code || !price || !stock || !category) {
+    return res.status(400).json({ error: "Todos los campos son obligatorios" });
+  }
+
+  if (typeof price !== "number" || typeof stock !== "number") {
+    return res.status(400).json({ error: "Price y stock deben ser números" });
+  }
+
   const newProduct = await manager.addProduct(req.body);
   res.status(201).json(newProduct);
 });
